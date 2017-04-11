@@ -76,12 +76,12 @@ namespace basic_calculator
             }//doesn't test for it being 1 or 2 or 3....
         }
 
-        private bool isDecimal(string[] eq)//fix me
+        private bool isDecimal(string[] eq)//should contain operand1, operator, operand2 OR operand1, operator
         {
             Decimal deq = 0;
-            if (eq.Length == 3 && Decimal.TryParse(eq[0], out deq)) { return true; }//???
-            //throw new NotImplementedException();
-            else if (eq.Length == 3 && Decimal.TryParse(eq[2], out deq)) { return false; }//???
+            if (eq.Length == 3 && Decimal.TryParse(eq[0], out deq) && Decimal.TryParse(eq[2], out deq)) { return true; } //if operand, operator, operand
+            else if (eq.Length == 2 && Decimal.TryParse(eq[0], out deq)) { return true; } //operand1 and operator
+            else { return false; }
         }
 
         private void Sign(string display)//toggle sign
