@@ -46,26 +46,23 @@ namespace basic_calculator
             else if (sender == btnReciprocal) Reciprocal();//calculate and display reciprocal
             else if (sender == btnEquals) Calculate();//calculate results of other equations
 
-
+            goBack = true;
             display = display + operand;
             txtDisplay.Text = display;
-            goBack = true;//not working somewhere....
+            
         }
 
         private void AC()
         {
             txtDisplay.Text="";
             display = "";
-            goBack = true;
+            //goBack = true;
             c.AllClear();
 
         }
 
         private void Calculate()
         {
-            //throw new NotImplementedException();
-            //use string to calculate result of equation
-
             string[] eq = StringSplit();
             if (dataValidation(eq))
             {
@@ -151,11 +148,13 @@ namespace basic_calculator
             AC();
         }
 
-        private void btnBack_Click(object sender, EventArgs e)
+        private void btnBack_Click(object sender, EventArgs e) //this isn't working right now need to debug
         {
             if (goBack)//allowed to go back if calculation has not been completed.
             {
+
                 display = display.Remove(display.Length - 1);//take last entry off
+                txtDisplay.Text = display;
             }
         }
     }
