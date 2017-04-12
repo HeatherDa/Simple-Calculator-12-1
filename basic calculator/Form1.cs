@@ -13,9 +13,12 @@ namespace basic_calculator
     public partial class Form1 : Form
     {
         string display = "";
+        Calculator c = new Calculator();
+        bool goBack = true;
         public Form1()
         {
             InitializeComponent();
+
 
         }
 
@@ -38,37 +41,67 @@ namespace basic_calculator
             else if (sender == btnMultiply) operand = operand + " * ";
             else if (sender == btnSub) operand = operand + " - ";
             else if (sender == btnAdd) operand = operand + " + ";
-            else if (sender == btnSign) Sign(display);//toggle positive /negative
-            else if (sender == btnSqrt) Sqrt(display);//calculate and display square root
-            else if (sender == btnReciprocal) Reciprocal(display);//calculate and display reciprocal
-            else if (sender == btnEquals) Calculate(display);//calculate results of other equations
-            
+            else if (sender == btnSign) Sign();//toggle positive /negative
+            else if (sender == btnSqrt) Sqrt();//calculate and display square root
+            else if (sender == btnReciprocal) Reciprocal();//calculate and display reciprocal
+            else if (sender == btnEquals) Calculate();//calculate results of other equations
+
+
             display = display + operand;
             txtDisplay.Text = display;
+            goBack = true;//not working somewhere....
         }
 
-        private void Calculate(string display)
+        private void AC()
+        {
+            txtDisplay.Text="";
+            display = "";
+            goBack = true;
+            c.AllClear();
+
+        }
+
+        private void Calculate()
         {
             //throw new NotImplementedException();
             //use string to calculate result of equation
-            Calculator c = new Calculator();
-            String[] eq = display.Split(' ');
+
+            string[] eq = StringSplit();
             if (dataValidation(eq))
             {
                 c.Op1 = Decimal.Parse(eq[0]); //set value of first operand
+                c.Op2 = Decimal.Parse(eq[2]); //set second value
+                c.Operation = eq[1]; //get operation type
+                display = c.Equals().ToString();
+                txtDisplay.Text = display;
+                goBack = false;
             }
 
         }
 
+        private string[] StringSplit()
+        {
+            return display.Split(' ');
+        }
+
         private bool dataValidation(string[] eq)
         {
-            //throw new NotImplementedException();
-            return isDecimal(eq) && isNotNull(eq);
+            return isDecimal(eq) && isNotNull(eq) && NotDivideByZero(eq);
+        }
+
+        private bool NotDivideByZero(string[] eq)
+        {
+            if (eq[2].Contains("0") && eq[1].Contains("/"))//check for divide by zero
+            {
+                MessageBox.Show("Cannot Divide by Zero");
+                return false;//divide by zero, so fails data validation
+            }
+            return true;//if above condition not met
         }
 
         private bool isNotNull(string[] eq)
         {
-            if (eq.Length !=0) { return true; }
+            if (eq.Length >=2) { return true; }
             else
             {
                 MessageBox.Show("Please enter your equation before calculating");
@@ -84,22 +117,46 @@ namespace basic_calculator
             else { return false; }
         }
 
-        private void Sign(string display)//toggle sign
+        private void Sign()//toggle sign True = Positive, False = Negative
         {
-            throw new NotImplementedException();
-            //set display to result
+            String[] n= StringSplit();
+            if (n.Length < 2) //we don't have a second op yet
+            {
+                c.Sign=true; //op1 gets changed
+            }
+            else { c.Sign = false; } //op2 gets changed
+            //which operand do I add sign to for display?
         }
 
-        private void Reciprocal(string btnName)//calculate reciprocal
+        private void Reciprocal()//calculate reciprocal
         {
-            throw new NotImplementedException();
-            //set display to result
+            String[] n=StringSplit();
+            c.Op1=Decimal.Parse(n[0]);
+            display=c.Reciprocal().ToString();
+            txtDisplay.Text = display;
+            goBack = false;
         }
 
-        private void Sqrt(string btnName)//calculate square root
+        private void Sqrt()//calculate square root
         {
-            throw new NotImplementedException();
-            //set display to result
+            String[] n = StringSplit();
+            c.Op1 = Decimal.Parse(n[0]);
+            display = c.Sqrt().ToString();
+            txtDisplay.Text = display;
+            goBack = false;
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            AC();
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            if (goBack)//allowed to go back if calculation has not been completed.
+            {
+                display = display.Remove(display.Length - 1);//take last entry off
+            }
         }
     }
 }
