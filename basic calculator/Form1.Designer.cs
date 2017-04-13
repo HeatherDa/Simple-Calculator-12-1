@@ -54,17 +54,17 @@
             // 
             // txtDisplay
             // 
-            this.txtDisplay.Location = new System.Drawing.Point(13, 13);
+            this.txtDisplay.Location = new System.Drawing.Point(13, 14);
             this.txtDisplay.Name = "txtDisplay";
             this.txtDisplay.ReadOnly = true;
-            this.txtDisplay.Size = new System.Drawing.Size(201, 20);
+            this.txtDisplay.Size = new System.Drawing.Size(186, 20);
             this.txtDisplay.TabIndex = 0;
             // 
             // btnBack
             // 
-            this.btnBack.Location = new System.Drawing.Point(13, 40);
+            this.btnBack.Location = new System.Drawing.Point(13, 41);
             this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(75, 29);
+            this.btnBack.Size = new System.Drawing.Size(67, 29);
             this.btnBack.TabIndex = 1;
             this.btnBack.Text = "Back";
             this.btnBack.UseVisualStyleBackColor = true;
@@ -72,9 +72,9 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(95, 40);
+            this.btnClear.Location = new System.Drawing.Point(87, 41);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(119, 29);
+            this.btnClear.Size = new System.Drawing.Size(112, 29);
             this.btnClear.TabIndex = 2;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = true;
@@ -82,7 +82,7 @@
             // 
             // btn7
             // 
-            this.btn7.Location = new System.Drawing.Point(21, 84);
+            this.btn7.Location = new System.Drawing.Point(13, 83);
             this.btn7.Name = "btn7";
             this.btn7.Size = new System.Drawing.Size(30, 31);
             this.btn7.TabIndex = 3;
@@ -92,7 +92,7 @@
             // 
             // btn8
             // 
-            this.btn8.Location = new System.Drawing.Point(57, 84);
+            this.btn8.Location = new System.Drawing.Point(49, 83);
             this.btn8.Name = "btn8";
             this.btn8.Size = new System.Drawing.Size(31, 31);
             this.btn8.TabIndex = 4;
@@ -102,7 +102,7 @@
             // 
             // btn9
             // 
-            this.btn9.Location = new System.Drawing.Point(95, 84);
+            this.btn9.Location = new System.Drawing.Point(87, 83);
             this.btn9.Name = "btn9";
             this.btn9.Size = new System.Drawing.Size(32, 31);
             this.btn9.TabIndex = 5;
@@ -112,7 +112,7 @@
             // 
             // btnDivide
             // 
-            this.btnDivide.Location = new System.Drawing.Point(133, 84);
+            this.btnDivide.Location = new System.Drawing.Point(125, 83);
             this.btnDivide.Name = "btnDivide";
             this.btnDivide.Size = new System.Drawing.Size(30, 31);
             this.btnDivide.TabIndex = 6;
@@ -122,27 +122,27 @@
             // 
             // btnSqrt
             // 
-            this.btnSqrt.Location = new System.Drawing.Point(169, 84);
+            this.btnSqrt.Location = new System.Drawing.Point(161, 83);
             this.btnSqrt.Name = "btnSqrt";
             this.btnSqrt.Size = new System.Drawing.Size(38, 31);
             this.btnSqrt.TabIndex = 7;
             this.btnSqrt.Text = "sqrt";
             this.btnSqrt.UseVisualStyleBackColor = true;
-            this.btnSqrt.Click += new System.EventHandler(this.btn_Handler);
+            this.btnSqrt.Click += new System.EventHandler(this.Sqrt_Click);
             // 
             // btnReciprocal
             // 
-            this.btnReciprocal.Location = new System.Drawing.Point(169, 121);
+            this.btnReciprocal.Location = new System.Drawing.Point(161, 120);
             this.btnReciprocal.Name = "btnReciprocal";
             this.btnReciprocal.Size = new System.Drawing.Size(38, 31);
             this.btnReciprocal.TabIndex = 12;
             this.btnReciprocal.Text = "1/x";
             this.btnReciprocal.UseVisualStyleBackColor = true;
-            this.btnReciprocal.Click += new System.EventHandler(this.btn_Handler);
+            this.btnReciprocal.Click += new System.EventHandler(this.Reciprocal_Click);
             // 
             // btnMultiply
             // 
-            this.btnMultiply.Location = new System.Drawing.Point(133, 121);
+            this.btnMultiply.Location = new System.Drawing.Point(125, 120);
             this.btnMultiply.Name = "btnMultiply";
             this.btnMultiply.Size = new System.Drawing.Size(30, 31);
             this.btnMultiply.TabIndex = 11;
@@ -152,7 +152,7 @@
             // 
             // btn6
             // 
-            this.btn6.Location = new System.Drawing.Point(95, 121);
+            this.btn6.Location = new System.Drawing.Point(87, 120);
             this.btn6.Name = "btn6";
             this.btn6.Size = new System.Drawing.Size(32, 31);
             this.btn6.TabIndex = 10;
@@ -162,7 +162,7 @@
             // 
             // btn5
             // 
-            this.btn5.Location = new System.Drawing.Point(57, 121);
+            this.btn5.Location = new System.Drawing.Point(49, 120);
             this.btn5.Name = "btn5";
             this.btn5.Size = new System.Drawing.Size(31, 31);
             this.btn5.TabIndex = 9;
@@ -172,7 +172,7 @@
             // 
             // btn4
             // 
-            this.btn4.Location = new System.Drawing.Point(21, 121);
+            this.btn4.Location = new System.Drawing.Point(13, 120);
             this.btn4.Name = "btn4";
             this.btn4.Size = new System.Drawing.Size(30, 31);
             this.btn4.TabIndex = 8;
@@ -182,17 +182,17 @@
             // 
             // btnEquals
             // 
-            this.btnEquals.Location = new System.Drawing.Point(169, 158);
+            this.btnEquals.Location = new System.Drawing.Point(161, 157);
             this.btnEquals.Name = "btnEquals";
             this.btnEquals.Size = new System.Drawing.Size(38, 68);
             this.btnEquals.TabIndex = 17;
             this.btnEquals.Text = "=";
             this.btnEquals.UseVisualStyleBackColor = true;
-            this.btnEquals.Click += new System.EventHandler(this.btn_Handler);
+            this.btnEquals.Click += new System.EventHandler(this.Equals_Click);
             // 
             // btnSub
             // 
-            this.btnSub.Location = new System.Drawing.Point(133, 158);
+            this.btnSub.Location = new System.Drawing.Point(125, 157);
             this.btnSub.Name = "btnSub";
             this.btnSub.Size = new System.Drawing.Size(30, 31);
             this.btnSub.TabIndex = 16;
@@ -202,7 +202,7 @@
             // 
             // btn3
             // 
-            this.btn3.Location = new System.Drawing.Point(95, 158);
+            this.btn3.Location = new System.Drawing.Point(87, 157);
             this.btn3.Name = "btn3";
             this.btn3.Size = new System.Drawing.Size(32, 31);
             this.btn3.TabIndex = 15;
@@ -212,7 +212,7 @@
             // 
             // btn2
             // 
-            this.btn2.Location = new System.Drawing.Point(57, 158);
+            this.btn2.Location = new System.Drawing.Point(49, 157);
             this.btn2.Name = "btn2";
             this.btn2.Size = new System.Drawing.Size(31, 31);
             this.btn2.TabIndex = 14;
@@ -222,7 +222,7 @@
             // 
             // btn1
             // 
-            this.btn1.Location = new System.Drawing.Point(21, 158);
+            this.btn1.Location = new System.Drawing.Point(13, 157);
             this.btn1.Name = "btn1";
             this.btn1.Size = new System.Drawing.Size(30, 31);
             this.btn1.TabIndex = 13;
@@ -232,7 +232,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(133, 195);
+            this.btnAdd.Location = new System.Drawing.Point(125, 194);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(30, 31);
             this.btnAdd.TabIndex = 21;
@@ -242,7 +242,7 @@
             // 
             // btnDecimal
             // 
-            this.btnDecimal.Location = new System.Drawing.Point(95, 195);
+            this.btnDecimal.Location = new System.Drawing.Point(87, 194);
             this.btnDecimal.Name = "btnDecimal";
             this.btnDecimal.Size = new System.Drawing.Size(32, 31);
             this.btnDecimal.TabIndex = 20;
@@ -252,17 +252,17 @@
             // 
             // btnSign
             // 
-            this.btnSign.Location = new System.Drawing.Point(57, 195);
+            this.btnSign.Location = new System.Drawing.Point(49, 194);
             this.btnSign.Name = "btnSign";
             this.btnSign.Size = new System.Drawing.Size(31, 31);
             this.btnSign.TabIndex = 19;
             this.btnSign.Text = "+/-";
             this.btnSign.UseVisualStyleBackColor = true;
-            this.btnSign.Click += new System.EventHandler(this.btn_Handler);
+            this.btnSign.Click += new System.EventHandler(this.Sign_Click);
             // 
             // btn0
             // 
-            this.btn0.Location = new System.Drawing.Point(21, 195);
+            this.btn0.Location = new System.Drawing.Point(13, 194);
             this.btn0.Name = "btn0";
             this.btn0.Size = new System.Drawing.Size(30, 31);
             this.btn0.TabIndex = 18;
@@ -274,7 +274,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(240, 261);
+            this.ClientSize = new System.Drawing.Size(212, 237);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnDecimal);
             this.Controls.Add(this.btnSign);
@@ -298,7 +298,7 @@
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.txtDisplay);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Simple Calculator";
             this.ResumeLayout(false);
             this.PerformLayout();
 

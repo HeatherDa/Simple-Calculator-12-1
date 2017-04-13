@@ -15,11 +15,11 @@ namespace basic_calculator
         string display = "";
         Calculator c = new Calculator();
         bool goBack = true;
+        string[] repeat = new string[3];
+        string prevClick= "";
         public Form1()
         {
             InitializeComponent();
-
-
         }
 
         private void btn_Handler(object sender, EventArgs e)
@@ -36,35 +36,20 @@ namespace basic_calculator
             else if (sender == btn9) operand = "9";
             else if (sender == btn0) operand = "0";
             else if (sender == btnDecimal) operand = operand + ".";
-
             else if (sender == btnDivide) operand = operand + " / ";
             else if (sender == btnMultiply) operand = operand + " * ";
             else if (sender == btnSub) operand = operand + " - ";
             else if (sender == btnAdd) operand = operand + " + ";
-            else if (sender == btnSign) Sign();//toggle positive /negative
-            else if (sender == btnSqrt) Sqrt();//calculate and display square root
-            else if (sender == btnReciprocal) Reciprocal();//calculate and display reciprocal
-            else if (sender == btnEquals) Calculate();//calculate results of other equations
-
             goBack = true;
             display = display + operand;
+            prevClick = operand;
             txtDisplay.Text = display;
-            
-        }
-
-        private void AC()
-        {
-            txtDisplay.Text="";
-            display = "";
-            //goBack = true;
-            c.AllClear();
-
         }
 
         private void Calculate()
         {
             string[] eq = StringSplit();
-            if (dataValidation(eq))
+            if (dataValidation3(eq))
             {
                 c.Op1 = Decimal.Parse(eq[0]); //set value of first operand
                 c.Op2 = Decimal.Parse(eq[2]); //set second value
@@ -72,23 +57,117 @@ namespace basic_calculator
                 display = c.Equals().ToString();
                 txtDisplay.Text = display;
                 goBack = false;
+                prevClick = "=";
+                repeat[0] = display;//answer becomes first entry
+                repeat[1] = eq[1];//previous operator becomes second entry
+                repeat[2] = eq[2];//previous operator becomes third entry                                 
             }
-
         }
 
+        private void EqualsAgain()
+        {
+            if (dataValidation(repeat))
+            {
+                display = c.Equals().ToString();
+                txtDisplay.Text = display;
+                goBack = false;
+                prevClick = "=";
+            }
+        }
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            txtDisplay.Text = "";
+            display = "";
+            //goBack = true;
+            c.AllClear();
+            prevClick = "";
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            if (goBack)//allowed to go back if calculation has not been completed.
+            {
+
+                display = display.Remove(display.Length - 1);//take last entry off
+                txtDisplay.Text = display;
+            }
+        }
+
+        private void Sqrt_Click(object sender, EventArgs e)
+        {
+            String[] n = StringSplit();
+            if (dataValidation(n))
+            {
+                c.Op1 = Decimal.Parse(n[0]);
+                display = c.Sqrt().ToString();
+                txtDisplay.Text = display;
+                goBack = false;
+                prevClick = "sq";
+            }
+        }
+
+        private void Sign_Click(object sender, EventArgs e)
+        {
+            String[] n = StringSplit();
+            if (n.Length < 2) //we don't have a second op yet
+            {
+                c.Sign = true; //op1 gets changed
+            }
+            else { c.Sign = false; } //op2 gets changed
+            //which operand do I add sign to for display?
+            prevClick = "s";
+        }
+
+        private void Reciprocal_Click(object sender, EventArgs e)
+        {
+            String[] n = StringSplit();
+            if (dataValidation(n)&& n[0] !="0")
+            {
+                c.Op1 = Decimal.Parse(n[0]);
+                display = c.Reciprocal().ToString();
+                txtDisplay.Text = display;
+                goBack = false;
+                prevClick = "r";
+            }
+            else if (n[0]=="0") //if operand would be 0, error message
+            {
+                MessageBox.Show("Cannot calculate Reciprocal of 0.", "Calculation Error");
+            }
+        }
         private string[] StringSplit()
         {
             return display.Split(' ');
         }
 
+        private void Equals_Click(object sender, EventArgs e)
+        {
+            if (prevClick != "=") { Calculate(); }
+            else if (prevClick == "=") { EqualsAgain(); }
+        }
+
+        private bool dataValidation3(string[] eq)
+        {
+            if (isNotNull(eq)&& isDecimal(eq)) { return NotDivideByZero(eq); }//if first two fail, don't do third, or generates error.
+            else { return false; }//if first two trials succeed, safe to try third.  else generates exception
+        }
         private bool dataValidation(string[] eq)
         {
-            return isDecimal(eq) && isNotNull(eq) && NotDivideByZero(eq);
+            return isDecimal(eq) && isNotNull1(eq);
+        }
+
+        private bool isNotNull1(string[] eq)
+        {
+            if(eq[0] != "") { return true; }
+            else
+            {
+                MessageBox.Show("Please enter at least 1 number", "Entry Error");
+                return false;
+            }
         }
 
         private bool NotDivideByZero(string[] eq)
         {
-            if (eq[2].Contains("0") && eq[1].Contains("/"))//check for divide by zero
+            if (eq[2] =="0" && eq[1]=="/")//check for divide by zero
             {
                 MessageBox.Show("Cannot Divide by Zero");
                 return false;//divide by zero, so fails data validation
@@ -96,65 +175,37 @@ namespace basic_calculator
             return true;//if above condition not met
         }
 
-        private bool isNotNull(string[] eq)
+        private bool isNotNull(string[] eq)//use with equals
         {
-            if (eq.Length >=2) { return true; }
-            else
+            int count = 0;
+            String erStr = "Please enter a number followed by an operator and another number.  Unless you are clicking equals a second time.";
+            /*if (eq.Length < 3)
             {
-                MessageBox.Show("Please enter your equation before calculating");
-                return false;
-            }//doesn't test for it being 1 or 2 or 3....
+                MessageBox.Show(erStr, "Entry Error");
+                valid = false;
+            }*/
+            foreach (String s in eq)
+            {
+                if(eq.Length<3 || s == "")
+                {
+                    MessageBox.Show(erStr, "Entry Error");
+                    count = count+1;
+                }
+            }
+            if (count == 0) { return true; }
+            else { return false; }
+            
         }
 
         private bool isDecimal(string[] eq)//should contain operand1, operator, operand2 OR operand1, operator
         {
             Decimal deq = 0;
             if (eq.Length == 3 && Decimal.TryParse(eq[0], out deq) && Decimal.TryParse(eq[2], out deq)) { return true; } //if operand, operator, operand
-            else if (eq.Length == 2 && Decimal.TryParse(eq[0], out deq)) { return true; } //operand1 and operator
-            else { return false; }
-        }
-
-        private void Sign()//toggle sign True = Positive, False = Negative
-        {
-            String[] n= StringSplit();
-            if (n.Length < 2) //we don't have a second op yet
+            else if (eq.Length == 1 && Decimal.TryParse(eq[0], out deq)) { return true; } //operand1 and operator
+            else
             {
-                c.Sign=true; //op1 gets changed
-            }
-            else { c.Sign = false; } //op2 gets changed
-            //which operand do I add sign to for display?
-        }
-
-        private void Reciprocal()//calculate reciprocal
-        {
-            String[] n=StringSplit();
-            c.Op1=Decimal.Parse(n[0]);
-            display=c.Reciprocal().ToString();
-            txtDisplay.Text = display;
-            goBack = false;
-        }
-
-        private void Sqrt()//calculate square root
-        {
-            String[] n = StringSplit();
-            c.Op1 = Decimal.Parse(n[0]);
-            display = c.Sqrt().ToString();
-            txtDisplay.Text = display;
-            goBack = false;
-        }
-
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            AC();
-        }
-
-        private void btnBack_Click(object sender, EventArgs e) //this isn't working right now need to debug
-        {
-            if (goBack)//allowed to go back if calculation has not been completed.
-            {
-
-                display = display.Remove(display.Length - 1);//take last entry off
-                txtDisplay.Text = display;
+                MessageBox.Show("Please enter a number.", "Entry Error");
+                return false;
             }
         }
     }

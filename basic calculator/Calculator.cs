@@ -43,6 +43,7 @@ namespace basic_calculator
 
             set
             {
+                sign = value;
                 if (sign) { op1=op1*-1; }//reverse sign of op1
                 else { op2 = op2 * -1; }//reverse sign of op2
             }
