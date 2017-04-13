@@ -178,7 +178,7 @@ namespace basic_calculator
         private bool isNotNull(string[] eq)//use with equals
         {
             int count = 0;
-            String erStr = "Please enter a number followed by an operator and another number.  Unless you are clicking equals a second time.";
+            String erStr = "Please enter a number followed by an operator and another number.";
             /*if (eq.Length < 3)
             {
                 MessageBox.Show(erStr, "Entry Error");
